@@ -1,11 +1,173 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Geometry Challenge</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2ff;
+      text-align: center;
+      padding: 40px 15px;
+    }
+
+    .game {
+      background: white;
+      max-width: 450px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px #00000015;
+    }
+
+    h1 { color: #3346a0; }
+
+    .shape {
+      font-size: 90px;
+      margin: 25px 0;
+      color: #5268dc;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border: 1px solid #d4daf5;
+      border-radius: 9px;
+      background: #f1f4ff;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    button:hover:not(:disabled) {
+      background: #dce5ff;
+    }
+
+    button:disabled {
+      cursor: default;
+    }
+
+    #feedback {
+      font-weight: bold;
+      min-height: 25px;
+      margin-top: 20px;
+    }
+
+    .next {
+      background: #5268dc;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Welcome to Geometry Challenge!</h1>
-  <p>Let's learn about shapes.</p>
+  <main class="game">
+    <h1>📐 Geometry Challenge</h1>
+    <p>Identify the correct shape!</p>
+
+    <p id="progress"></p>
+    <div class="shape" id="shape"></div>
+
+    <div id="options"></div>
+
+    <p id="feedback" aria-live="polite"></p>
+
+    <button class="next" id="next" disabled>
+      Next Question →
+    </button>
+  </main>
+
+  <script>
+    const questions = [
+      {
+        shape: "▲",
+        answer: "Triangle",
+        options: ["Square", "Triangle", "Circle"]
+      },
+      {
+        shape: "■",
+        answer: "Square",
+        options: ["Rectangle", "Circle", "Square"]
+      },
+      {
+        shape: "●",
+        answer: "Circle",
+        options: ["Triangle", "Circle", "Square"]
+      },
+      {
+        shape: "◆",
+        answer: "Rhombus",
+        options: ["Rhombus", "Circle", "Triangle"]
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function showQuestion() {
+      const q = questions[current];
+
+      document.getElementById("progress").textContent =
+        `Question ${current + 1} of ${questions.length} | Score: ${score}`;
+
+      document.getElementById("shape").textContent = q.shape;
+
+      document.getElementById("feedback").textContent = "";
+
+      document.getElementById("next").disabled = true;
+
+      const container = document.getElementById("options");
+      container.innerHTML = "";
+
+      q.options.forEach(option => {
+        const button = document.createElement("button");
+        button.textContent = option;
+
+        button.onclick = () => checkAnswer(option);
+
+        container.appendChild(button);
+      });
+    }
+
+    function checkAnswer(selected) {
+      const correct = questions[current].answer;
+
+      if (selected === correct) {
+        score++;
+        document.getElementById("feedback").textContent =
+          "✅ Correct!";
+      } else {
+        document.getElementById("feedback").textContent =
+          `❌ The correct answer is ${correct}.`;
+      }
+
+      document.querySelectorAll("#options button").forEach(button => {
+        button.disabled = true;
+      });
+
+      document.getElementById("next").disabled = false;
+    }
+
+    document.getElementById("next").onclick = () => {
+      current++;
+
+      if (current < questions.length) {
+        showQuestion();
+      } else {
+        document.querySelector(".game").innerHTML = `
+          <h1>🎉 Challenge Complete!</h1>
+          <h2>Your score: ${score}/${questions.length}</h2>
+          <button onclick="location.reload()">Play Again</button>
+        `;
+      }
+    };
+
+    showQuestion();
+  </script>
 </body>
 </html>
