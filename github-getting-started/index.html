@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Learning Hub</title>
+  <title>Getting Started with GitHub Pages</title>
 
   <style>
     * {
@@ -13,171 +13,530 @@
 
     body {
       margin: 0;
+      background: #f5f7fc;
+      color: #1e293b;
       font-family: system-ui, Arial, sans-serif;
-      background: #f6f8fc;
-      color: #17253c;
+      min-height: 100vh;
     }
 
     header {
-      background: #243b83;
+      background: linear-gradient(135deg, #243b83, #5268dc);
       color: white;
+      padding: 25px 20px 55px;
       text-align: center;
-      padding: 65px 20px;
+    }
+
+    .navigation {
+      max-width: 760px;
+      margin: auto;
+      text-align: left;
+    }
+
+    .home-link {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 0;
+    }
+
+    .home-link:hover {
+      text-decoration: underline;
     }
 
     header h1 {
-      font-size: clamp(30px, 5vw, 44px);
-      margin: 0 0 12px;
+      font-size: clamp(28px, 5vw, 40px);
+      margin: 24px 0 12px;
     }
 
     header p {
-      color: #dce5ff;
-      font-size: 17px;
-      margin: 0;
+      color: #e0e7ff;
+      line-height: 1.7;
+      max-width: 560px;
+      margin: auto;
     }
 
     main {
-      max-width: 1050px;
-      margin: 0 auto;
-      padding: 42px 20px;
-    }
-
-    h2 {
-      margin: 0 0 20px;
-    }
-
-    .section {
-      margin-bottom: 48px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      max-width: 760px;
+      margin: -25px auto 50px;
+      padding: 0 16px;
     }
 
     .card {
       background: white;
-      border: 1px solid #e5eaf2;
-      border-radius: 16px;
-      padding: 28px;
-      box-shadow: 0 4px 18px #17253c08;
-      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #e5e9f2;
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 10px 35px #1e293b12;
     }
 
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px #17253c14;
-    }
-
-    .icon {
-      font-size: 38px;
-      margin-bottom: 16px;
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 21px;
-    }
-
-    .card p {
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
       color: #64748b;
-      line-height: 1.6;
-      min-height: 52px;
-    }
-
-    .button {
-      display: inline-block;
-      margin-top: 14px;
-      background: #3e57c5;
-      color: white;
-      text-decoration: none;
-      padding: 12px 18px;
-      border-radius: 9px;
+      font-size: 14px;
       font-weight: 600;
+      margin-bottom: 12px;
     }
 
-    .button:hover {
-      background: #293e9d;
+    .progress-track {
+      width: 100%;
+      height: 9px;
+      background: #e9edf7;
+      border-radius: 20px;
+      overflow: hidden;
     }
 
-    .button:focus-visible {
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: #5268dc;
+      transition: width 0.3s ease;
+    }
+
+    .step-icon {
+      font-size: 44px;
+      margin-top: 30px;
+    }
+
+    h2 {
+      font-size: 25px;
+      margin: 16px 0;
+    }
+
+    .description {
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    ol {
+      padding-left: 25px;
+      margin: 24px 0;
+    }
+
+    li {
+      padding-left: 6px;
+      margin-bottom: 15px;
+      line-height: 1.7;
+    }
+
+    a {
+      color: #435ac3;
+    }
+
+    code {
+      background: #eef2ff;
+      padding: 4px 7px;
+      border-radius: 5px;
+      font-size: 0.9em;
+      overflow-wrap: anywhere;
+    }
+
+    .tip {
+      background: #eff4ff;
+      border-left: 4px solid #5268dc;
+      padding: 16px;
+      border-radius: 9px;
+      color: #334155;
+      line-height: 1.7;
+      margin-top: 25px;
+      font-size: 14px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 35px;
+    }
+
+    button {
+      border: 1px solid #d6dce9;
+      border-radius: 10px;
+      padding: 13px 24px;
+      background: white;
+      color: #334155;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: white;
+      background: #5268dc;
+      border-color: #5268dc;
+    }
+
+    button.primary:hover {
+      background: #394bb0;
+    }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
       outline: 3px solid #f59e0b;
       outline-offset: 3px;
     }
 
+    .video-section {
+      margin-top: 24px;
+      background: white;
+      border: 1px solid #e5e9f2;
+      border-radius: 18px;
+      padding: 28px;
+    }
+
+    .video-section h2 {
+      margin-top: 0;
+    }
+
+    .video-section p {
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    .video-placeholder {
+      background: #f1f4fa;
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 45px 20px;
+      text-align: center;
+      color: #64748b;
+    }
+
     footer {
-      background: #e9edf6;
       text-align: center;
       padding: 25px;
-      color: #66758b;
-      font-size: 14px;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 22px;
+      }
+
+      .actions button {
+        flex: 1;
+        padding: 12px;
+      }
     }
   </style>
 </head>
 
 <body>
+
   <header>
-    <h1>🎓 Digital Learning Hub</h1>
-    <p>Explore, Learn and Practise with Interactive Activities</p>
+    <nav class="navigation">
+      <a
+        class="home-link"
+        href="/digital-learning-hub/"
+      >
+        ← Back to Learning Hub
+      </a>
+    </nav>
+
+    <h1>🚀 Getting Started with GitHub Pages</h1>
+
+    <p>
+      Learn how to publish your first HTML, CSS and JavaScript
+      website online for free, one step at a time.
+    </p>
   </header>
 
   <main>
-    <section class="section">
-      <h2>🎮 Mathematics Games</h2>
 
-      <div class="cards">
+    <section class="card" aria-live="polite">
 
-        <article class="card">
-          <div class="icon">🍕</div>
-          <h3>Fractions Challenge</h3>
-          <p>
-            Practise equivalent fractions with fun,
-            interactive questions.
-          </p>
-          <a class="button" href="./fraction-game/">
-            Play Game →
-          </a>
-        </article>
-
-        <article class="card">
-          <div class="icon">✖️</div>
-          <h3>Multiplication Challenge</h3>
-          <p>
-            Test your multiplication knowledge
-            with exciting questions.
-          </p>
-          <a class="button" href="./multiplication-challenge/">
-            Play Game →
-          </a>
-        </article>
-
+      <div class="progress-header">
+        <span id="stepCount"></span>
+        <span id="progressPercent"></span>
       </div>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="step-icon" id="stepIcon"></div>
+
+      <h2 id="stepTitle"></h2>
+
+      <p class="description" id="stepDescription"></p>
+
+      <ol id="stepInstructions"></ol>
+
+      <div class="tip" id="stepTip"></div>
+
+      <div class="actions">
+        <button id="backBtn" onclick="previousStep()">
+          ← Back
+        </button>
+
+        <button
+          class="primary"
+          id="nextBtn"
+          onclick="nextStep()"
+        >
+          Done, Next →
+        </button>
+      </div>
+
     </section>
 
-    <section class="section">
-      <h2>📚 Technology Tutorials</h2>
+    <!-- Video guide section -->
+    <section class="video-section">
+      <h2>🎥 Video Tutorial</h2>
 
-      <div class="cards">
+      <p>
+        Prefer watching instead of reading?
+        Follow the video guide to learn how to set up GitHub Pages.
+      </p>
 
-        <article class="card">
-          <div class="icon">🚀</div>
-          <h3>Getting Started with GitHub Pages</h3>
-          <p>
-            Learn how to publish your first website
-            for free with step-by-step instructions.
-          </p>
-          <a class="button" href="./github-getting-started/">
-            Start Learning →
-          </a>
-        </article>
-
+      <div class="video-placeholder">
+        🎬 Video tutorial coming soon
       </div>
+
+      <!--
+        To embed your YouTube video later,
+        replace the video-placeholder div with:
+
+        <iframe
+          width="100%"
+          height="350"
+          src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+          title="GitHub Pages Tutorial"
+          style="border:0"
+          allowfullscreen>
+        </iframe>
+      -->
+
     </section>
+
   </main>
 
   <footer>
-    Digital Learning Hub | Learn Something New Every Day
+    Digital Learning Hub © 2026
   </footer>
+
+  <script>
+    const steps = [
+      {
+        icon: "👋",
+        title: "Welcome to GitHub Pages",
+        description:
+          "Before getting started, let's understand what GitHub Pages does.",
+
+        instructions: [
+          "GitHub is a platform for storing and managing your project files.",
+          "GitHub Pages is a free hosting service for static websites.",
+          "You can publish projects created with HTML, CSS and JavaScript.",
+          "Your published website can be accessed through a public link."
+        ],
+
+        tip:
+          "You do not need to purchase a domain name or web hosting to get started."
+      },
+
+      {
+        icon: "👤",
+        title: "Create a GitHub Account",
+        description:
+          "First, create your free GitHub account.",
+
+        instructions: [
+          'Open <a href="https://github.com" target="_blank" rel="noopener noreferrer">github.com</a>.',
+          "Click Sign up.",
+          "Enter your email address and follow the registration steps.",
+          "Verify your account if prompted.",
+          "Sign in to GitHub."
+        ],
+
+        tip:
+          "If you already have a GitHub account, simply sign in and continue."
+      },
+
+      {
+        icon: "📁",
+        title: "Create Your First Repository",
+        description:
+          "A repository is where GitHub stores your project files.",
+
+        instructions: [
+          'Open <a href="https://github.com/new" target="_blank" rel="noopener noreferrer">Create a new repository</a>.',
+          'Enter a repository name such as <code>my-first-website</code>.',
+          "Select Public.",
+          "Optionally, tick Add a README file.",
+          "Click Create repository."
+        ],
+
+        tip:
+          "Choose a descriptive repository name. For free GitHub Pages hosting, use a public repository."
+      },
+
+      {
+        icon: "💻",
+        title: "Create Your HTML Website",
+        description:
+          "Now create the HTML file that will become your website's homepage.",
+
+        instructions: [
+          "Open your GitHub repository.",
+          "If it is empty, click the link labelled creating a new file.",
+          "Otherwise click Add file → Create new file.",
+          'Enter <code>index.html</code> as the filename.',
+          'Enter your HTML code, for example <code>&lt;h1&gt;Hello World!&lt;/h1&gt;</code>.',
+          "Click Commit changes to save the file."
+        ],
+
+        tip:
+          "GitHub Pages looks for an index.html file to display as your website's homepage."
+      },
+
+      {
+        icon: "🌐",
+        title: "Enable GitHub Pages",
+        description:
+          "It's time to publish your website.",
+
+        instructions: [
+          "Open your repository on GitHub.",
+          "Click Settings at the top.",
+          "Click Pages in the left sidebar.",
+          "Under Build and deployment, choose Deploy from a branch.",
+          'Select <code>main</code> as the branch.',
+          'Select <code>/(root)</code> as the folder.',
+          "Click Save."
+        ],
+
+        tip:
+          "GitHub will publish your website automatically. The first deployment can take a few minutes."
+      },
+
+      {
+        icon: "🎉",
+        title: "Open Your Live Website",
+        description:
+          "Your website is now ready to be shared once deployment completes.",
+
+        instructions: [
+          "Return to Settings → Pages.",
+          "Look for the link to your published website.",
+          "Click Visit site.",
+          "Check whether your homepage loads successfully.",
+          "Share the website link with others."
+        ],
+
+        tip:
+          "Your website URL will look like https://USERNAME.github.io/my-first-website/"
+      },
+
+      {
+        icon: "🎮",
+        title: "Add More Pages and Games",
+        description:
+          "You can host multiple interactive activities inside the same repository.",
+
+        instructions: [
+          "Open your repository.",
+          "Click Add file → Create new file.",
+          'Enter <code>fraction-game/index.html</code> as the filename.',
+          "GitHub will automatically create the fraction-game folder.",
+          "Paste your HTML, CSS and JavaScript game code.",
+          "Click Commit changes.",
+          "Open your published game's URL."
+        ],
+
+        tip:
+          "Your game URL will look like https://USERNAME.github.io/my-first-website/fraction-game/"
+      },
+
+      {
+        icon: "🔗",
+        title: "Connect Your Pages Together",
+        description:
+          "Finally, link your games and tutorials from your homepage.",
+
+        instructions: [
+          'Open your main <code>index.html</code>.',
+          "Click the pencil icon to edit the file.",
+          'Add a link such as <code>&lt;a href="./fraction-game/"&gt;Play Fractions Game&lt;/a&gt;</code>.',
+          "Click Commit changes.",
+          "Open your homepage and test the link."
+        ],
+
+        tip:
+          "Links beginning with ./ are relative to the current page. From your main index.html, ./fraction-game/ opens your fraction game."
+      }
+    ];
+
+    let currentStep = 0;
+
+    const stepCount = document.getElementById("stepCount");
+    const progressPercent = document.getElementById("progressPercent");
+    const progressFill = document.getElementById("progressFill");
+    const stepIcon = document.getElementById("stepIcon");
+    const stepTitle = document.getElementById("stepTitle");
+    const stepDescription = document.getElementById("stepDescription");
+    const stepInstructions = document.getElementById("stepInstructions");
+    const stepTip = document.getElementById("stepTip");
+    const backBtn = document.getElementById("backBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function renderStep() {
+      const step = steps[currentStep];
+
+      const percentage = Math.round(
+        ((currentStep + 1) / steps.length) * 100
+      );
+
+      stepCount.textContent =
+        `Step ${currentStep + 1} of ${steps.length}`;
+
+      progressPercent.textContent = `${percentage}%`;
+      progressFill.style.width = `${percentage}%`;
+
+      stepIcon.textContent = step.icon;
+      stepTitle.textContent = step.title;
+      stepDescription.textContent = step.description;
+
+      stepInstructions.innerHTML = step.instructions
+        .map(instruction => `<li>${instruction}</li>`)
+        .join("");
+
+      stepTip.textContent = "💡 " + step.tip;
+
+      backBtn.disabled = currentStep === 0;
+
+      nextBtn.textContent =
+        currentStep === steps.length - 1
+          ? "Start Again ↻"
+          : "Done, Next →";
+    }
+
+    function nextStep() {
+      if (currentStep === steps.length - 1) {
+        currentStep = 0;
+      } else {
+        currentStep++;
+      }
+
+      renderStep();
+    }
+
+    function previousStep() {
+      if (currentStep > 0) {
+        currentStep--;
+        renderStep();
+      }
+    }
+
+    renderStep();
+  </script>
+
 </body>
 </html>
