@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Pages Beginner Guide</title>
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, sans-serif;
+      color: #202b3d;
+      background: #f5f7fb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 660px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      color: #5267d9;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    h1 { font-size: clamp(28px, 5vw, 38px); margin: 12px 0; }
+    .subtitle { color: #657083; line-height: 1.6; }
+
+    .card {
+      background: white;
+      border: 1px solid #e6e9f0;
+      border-radius: 18px;
+      padding: 30px;
+      margin-top: 28px;
+      box-shadow: 0 8px 30px #1c30500a;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      color: #657083;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .progress-track {
+      height: 8px;
+      background: #e9ecf5;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #5267d9;
+      width: 0;
+      transition: width .25s ease;
+    }
+
+    h2 { font-size: 24px; margin-top: 30px; }
+
+    .description {
+      color: #647083;
+      line-height: 1.7;
+    }
+
+    ol {
+      padding-left: 25px;
+      line-height: 2;
+    }
+
+    li { padding-left: 4px; }
+
+    a { color: #455bce; }
+
+    code {
+      background: #edf0fa;
+      padding: 3px 6px;
+      border-radius: 5px;
+      overflow-wrap: anywhere;
+    }
+
+    .tip {
+      padding: 15px;
+      border-radius: 10px;
+      background: #f0f4ff;
+      border-left: 3px solid #5267d9;
+      margin-top: 20px;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    button {
+      cursor: pointer;
+      border-radius: 9px;
+      padding: 12px 22px;
+      border: 1px solid #d9deeb;
+      background: white;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    button.primary {
+      background: #5267d9;
+      color: white;
+      border-color: #5267d9;
+    }
+
+    button:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+    }
+
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid #8ca0ff;
+      outline-offset: 3px;
+    }
+
+    .footer {
+      text-align: center;
+      color: #8190a2;
+      font-size: 13px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 22px; }
+      .actions button { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <p class="eyebrow">Beginner-friendly tutorial</p>
+    <h1>Publish your first website 🚀</h1>
+    <p class="subtitle">
+      Learn how to host your HTML, CSS and JavaScript project
+      online for free using GitHub Pages.
+    </p>
+
+    <section class="card" aria-live="polite">
+      <div class="progress-label">
+        <span id="stepCount"></span>
+        <span id="progressPercent"></span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <h2 id="stepTitle"></h2>
+      <p class="description" id="stepDescription"></p>
+      <ol id="stepInstructions"></ol>
+      <div class="tip" id="stepTip"></div>
+
+      <div class="actions">
+        <button id="backBtn" onclick="previousStep()">← Back</button>
+        <button class="primary" id="nextBtn" onclick="nextStep()">
+          Done, next →
+        </button>
+      </div>
+    </section>
+    <p class="footer">No coding experience with GitHub required.</p>
+  </main>
+
+  <script>
+    const steps = [
+      {
+        title: "Create your GitHub account",
+        description: "GitHub is a free platform where you can store your website files.",
+        instructions: [
+          'Visit <a href="https://github.com" target="_blank" rel="noopener noreferrer">github.com</a>.',
+          "Click Sign up if you don't already have an account.",
+          "Complete the registration process.",
+          "Sign in to GitHub."
+        ],
+        tip: "Already have an account? Simply sign in and continue."
+      },
+      {
+        title: "Create a new repository",
+        description: "A repository is where your website files will be stored.",
+        instructions: [
+          'Open <a href="https://github.com/new" target="_blank" rel="noopener noreferrer">Create new repository</a>.',
+          'Enter a repository name, such as <code>math-learning-hub</code>.',
+          "Select Public.",
+          "Tick Add a README file.",
+          "Click Create repository."
+        ],
+        tip: "Choose a meaningful name. You can use one repository to host multiple HTML games."
+      },
+      {
+        title: "Prepare your website files",
+        description: "Your website needs an index.html file as its starting page.",
+        instructions: [
+          "Create or locate your HTML, CSS and JavaScript files.",
+          'Ensure the homepage is named <code>index.html</code>.',
+          "Keep related files organised in the same project folder.",
+          "Check that the file paths in your HTML are correct."
+        ],
+        tip: "For example, your index.html can link to style.css and script.js."
+      },
+      {
+        title: "Upload your files",
+        description: "Now upload your website files to your GitHub repository.",
+        instructions: [
+          "Open your new repository on GitHub.",
+          "Click Add file → Upload files.",
+          "Drag your files into the upload area.",
+          "Scroll down and click Commit changes."
+        ],
+        tip: "Upload the files so index.html is at the root of your repository for a homepage."
+      },
+      {
+        title: "Enable GitHub Pages",
+        description: "GitHub Pages turns your repository into a public website.",
+        instructions: [
+          "Open your repository.",
+          "Click Settings.",
+          "Select Pages from the left sidebar.",
+          "Under Build and deployment, select Deploy from a branch.",
+          'Choose the <code>main</code> branch and <code>/(root)</code> folder.',
+          "Click Save."
+        ],
+        tip: "Your GitHub Pages site is free for a public repository."
+      },
+      {
+        title: "Open your live website",
+        description: "Your website will have a public URL you can share with others.",
+        instructions: [
+          "Open Settings → Pages again.",
+          "Find the published website URL.",
+          "Click Visit site or open the URL in your browser.",
+          "Check that your HTML, CSS and JavaScript work correctly."
+        ],
+        tip: "Example: https://yourusername.github.io/math-learning-hub/ — publishing can take a few minutes."
+      },
+      {
+        title: "Add more games",
+        description: "You can host multiple games and activities using the same repository.",
+        instructions: [
+          'Create a folder such as <code>fraction-game</code>.',
+          'Inside that folder, add its own <code>index.html</code> and any CSS or JavaScript files.',
+          "Upload the folder to your repository.",
+          'Add a link from your homepage using <code>&lt;a href="./fraction-game/"&gt;Fractions Game&lt;/a&gt;</code>.',
+          "Commit your changes and open the game link."
+        ],
+        tip: "Your game will be available at https://yourusername.github.io/math-learning-hub/fraction-game/"
+      }
+    ];
+
+    let currentStep = 0;
+
+    function renderStep() {
+      const step = steps[currentStep];
+      const percent = Math.round(
+        ((currentStep + 1) / steps.length) * 100
+      );
+
+      document.getElementById("stepCount").textContent =
+        `Step ${currentStep + 1} of ${steps.length}`;
+
+      document.getElementById("progressPercent").textContent =
+        `${percent}%`;
+
+      document.getElementById("progressFill").style.width =
+        `${percent}%`;
+
+      document.getElementById("stepTitle").textContent =
+        step.title;
+
+      document.getElementById("stepDescription").textContent =
+        step.description;
+
+      document.getElementById("stepInstructions").innerHTML =
+        step.instructions.map(item => `<li>${item}</li>`).join("");
+
+      document.getElementById("stepTip").textContent =
+        "💡 " + step.tip;
+
+      document.getElementById("backBtn").disabled =
+        currentStep === 0;
+
+      document.getElementById("nextBtn").textContent =
+        currentStep === steps.length - 1
+          ? "Start again ↻"
+          : "Done, next →";
+    }
+
+    function nextStep() {
+      if (currentStep === steps.length - 1) {
+        currentStep = 0;
+      } else {
+        currentStep++;
+      }
+      renderStep();
+    }
+
+    function previousStep() {
+      if (currentStep > 0) {
+        currentStep--;
+        renderStep();
+      }
+    }
+
+    renderStep();
+  </script>
+</body>
+</html>
