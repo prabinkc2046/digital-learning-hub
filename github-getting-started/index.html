@@ -183,32 +183,6 @@
       outline-offset: 3px;
     }
 
-    .video-section {
-      margin-top: 24px;
-      background: white;
-      border: 1px solid #e5e9f2;
-      border-radius: 18px;
-      padding: 28px;
-    }
-
-    .video-section h2 {
-      margin-top: 0;
-    }
-
-    .video-section p {
-      color: #64748b;
-      line-height: 1.7;
-    }
-
-    .video-placeholder {
-      background: #f1f4fa;
-      border: 2px dashed #cbd5e1;
-      border-radius: 12px;
-      padding: 45px 20px;
-      text-align: center;
-      color: #64748b;
-    }
-
     footer {
       text-align: center;
       padding: 25px;
@@ -235,7 +209,7 @@
     <nav class="navigation">
       <a
         class="home-link"
-        href="/digital-learning-hub/"
+        href="https://prabinkc2046.github.io/digital-learning-hub/"
       >
         ← Back to Learning Hub
       </a>
@@ -250,7 +224,6 @@
   </header>
 
   <main>
-
     <section class="card" aria-live="polite">
 
       <div class="progress-header">
@@ -287,36 +260,6 @@
       </div>
 
     </section>
-
-    <!-- Video guide section -->
-    <section class="video-section">
-      <h2>🎥 Video Tutorial</h2>
-
-      <p>
-        Prefer watching instead of reading?
-        Follow the video guide to learn how to set up GitHub Pages.
-      </p>
-
-      <div class="video-placeholder">
-        🎬 Video tutorial coming soon
-      </div>
-
-      <!--
-        To embed your YouTube video later,
-        replace the video-placeholder div with:
-
-        <iframe
-          width="100%"
-          height="350"
-          src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-          title="GitHub Pages Tutorial"
-          style="border:0"
-          allowfullscreen>
-        </iframe>
-      -->
-
-    </section>
-
   </main>
 
   <footer>
@@ -350,14 +293,14 @@
 
         instructions: [
           'Open <a href="https://github.com" target="_blank" rel="noopener noreferrer">github.com</a>.',
-          "Click Sign up.",
+          "Click Sign up if you do not have an account.",
           "Enter your email address and follow the registration steps.",
           "Verify your account if prompted.",
           "Sign in to GitHub."
         ],
 
         tip:
-          "If you already have a GitHub account, simply sign in and continue."
+          "Already have a GitHub account? Simply sign in and continue."
       },
 
       {
@@ -368,45 +311,45 @@
 
         instructions: [
           'Open <a href="https://github.com/new" target="_blank" rel="noopener noreferrer">Create a new repository</a>.',
-          'Enter a repository name such as <code>my-first-website</code>.',
+          'Enter a name such as <code>my-first-website</code>.',
           "Select Public.",
           "Optionally, tick Add a README file.",
           "Click Create repository."
         ],
 
         tip:
-          "Choose a descriptive repository name. For free GitHub Pages hosting, use a public repository."
+          "Choose a descriptive repository name. Public repositories support free GitHub Pages hosting."
       },
 
       {
         icon: "💻",
         title: "Create Your HTML Website",
         description:
-          "Now create the HTML file that will become your website's homepage.",
+          "Create the index.html file that will become your website homepage.",
 
         instructions: [
           "Open your GitHub repository.",
           "If it is empty, click the link labelled creating a new file.",
-          "Otherwise click Add file → Create new file.",
+          "Otherwise, click Add file → Create new file.",
           'Enter <code>index.html</code> as the filename.',
-          'Enter your HTML code, for example <code>&lt;h1&gt;Hello World!&lt;/h1&gt;</code>.',
-          "Click Commit changes to save the file."
+          'Add some HTML, such as <code>&lt;h1&gt;Hello World!&lt;/h1&gt;</code>.',
+          "Click Commit changes to save your file."
         ],
 
         tip:
-          "GitHub Pages looks for an index.html file to display as your website's homepage."
+          "The index.html file is the entry point for your homepage."
       },
 
       {
         icon: "🌐",
         title: "Enable GitHub Pages",
         description:
-          "It's time to publish your website.",
+          "Now publish your website using GitHub Pages.",
 
         instructions: [
           "Open your repository on GitHub.",
           "Click Settings at the top.",
-          "Click Pages in the left sidebar.",
+          "Select Pages from the left sidebar.",
           "Under Build and deployment, choose Deploy from a branch.",
           'Select <code>main</code> as the branch.',
           'Select <code>/(root)</code> as the folder.',
@@ -414,21 +357,21 @@
         ],
 
         tip:
-          "GitHub will publish your website automatically. The first deployment can take a few minutes."
+          "Publishing may take a few minutes. Your website will update automatically when you commit changes."
       },
 
       {
         icon: "🎉",
         title: "Open Your Live Website",
         description:
-          "Your website is now ready to be shared once deployment completes.",
+          "Your website is ready to share once GitHub Pages finishes publishing.",
 
         instructions: [
           "Return to Settings → Pages.",
-          "Look for the link to your published website.",
+          "Find your published website URL.",
           "Click Visit site.",
-          "Check whether your homepage loads successfully.",
-          "Share the website link with others."
+          "Check that your homepage loads correctly.",
+          "Share your website link with others."
         ],
 
         tip:
@@ -439,38 +382,38 @@
         icon: "🎮",
         title: "Add More Pages and Games",
         description:
-          "You can host multiple interactive activities inside the same repository.",
+          "You can add multiple activities to the same repository.",
 
         instructions: [
           "Open your repository.",
           "Click Add file → Create new file.",
           'Enter <code>fraction-game/index.html</code> as the filename.',
-          "GitHub will automatically create the fraction-game folder.",
+          "GitHub will create the fraction-game folder automatically.",
           "Paste your HTML, CSS and JavaScript game code.",
           "Click Commit changes.",
           "Open your published game's URL."
         ],
 
         tip:
-          "Your game URL will look like https://USERNAME.github.io/my-first-website/fraction-game/"
+          "Your game will be accessible at https://USERNAME.github.io/my-first-website/fraction-game/"
       },
 
       {
         icon: "🔗",
         title: "Connect Your Pages Together",
         description:
-          "Finally, link your games and tutorials from your homepage.",
+          "Add links to your homepage so visitors can open your games.",
 
         instructions: [
           'Open your main <code>index.html</code>.',
-          "Click the pencil icon to edit the file.",
-          'Add a link such as <code>&lt;a href="./fraction-game/"&gt;Play Fractions Game&lt;/a&gt;</code>.',
+          "Click the pencil icon to edit.",
+          'Add <code>&lt;a href="./fraction-game/"&gt;Play Fractions Game&lt;/a&gt;</code>.',
           "Click Commit changes.",
-          "Open your homepage and test the link."
+          "Open your homepage and test the new link."
         ],
 
         tip:
-          "Links beginning with ./ are relative to the current page. From your main index.html, ./fraction-game/ opens your fraction game."
+          "Relative links such as ./fraction-game/ work when the homepage is in the repository root."
       }
     ];
 
