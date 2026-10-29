@@ -1,0 +1,1383 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How I Create Video Guides | Digital Learning Hub</title>
+
+<style>
+:root {
+  --primary: #334eb6;
+  --dark: #172b55;
+  --background: #f5f7fc;
+  --text: #263348;
+  --muted: #64748b;
+  --border: #e2e8f0;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Arial, sans-serif;
+  line-height: 1.7;
+}
+
+a { color: var(--primary); }
+
+button { font: inherit; cursor: pointer; }
+
+.hero {
+  background: linear-gradient(135deg, #172b55, #435fd0);
+  color: white;
+  padding: 24px 20px 65px;
+}
+
+.hero-inner {
+  max-width: 1080px;
+  margin: auto;
+}
+
+.back-link {
+  color: #e5eaff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.hero h1 {
+  font-size: clamp(30px, 5vw, 45px);
+  line-height: 1.2;
+  max-width: 780px;
+  margin: 46px 0 18px;
+}
+
+.hero p {
+  color: #e2e8ff;
+  max-width: 720px;
+  font-size: 17px;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.hero-tags span {
+  background: #ffffff22;
+  border: 1px solid #ffffff30;
+  border-radius: 30px;
+  padding: 6px 13px;
+  font-size: 13px;
+}
+
+.container {
+  max-width: 1080px;
+  margin: -30px auto 60px;
+  padding: 0 20px;
+}
+
+.panel {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px #172b5510;
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 23px;
+  color: var(--dark);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.tool-card {
+  background: #f7f9ff;
+  border: 1px solid #e7ebf5;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.tool-card strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.tool-card small {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.workflow-map {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin-top: 20px;
+}
+
+.workflow-map span {
+  background: #edf1ff;
+  color: #3047a4;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.workflow-map .arrow {
+  background: transparent;
+  padding: 0;
+  color: #94a3b8;
+}
+
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.progress-track {
+  background: #e8ecf5;
+  border-radius: 20px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 0%;
+  background: #435fd0;
+  height: 100%;
+  transition: width .25s ease;
+}
+
+.progress-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: 1px solid #d5dced;
+  background: white;
+  color: var(--dark);
+  border-radius: 9px;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  color: white;
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn:hover { filter: brightness(.95); }
+
+.btn:focus-visible,
+a:focus-visible,
+summary:focus-visible,
+input:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: 3px;
+}
+
+.section-heading {
+  margin: 45px 0 18px;
+  font-size: 25px;
+  color: var(--dark);
+}
+
+.step {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.step[open] {
+  box-shadow: 0 5px 22px #172b550d;
+}
+
+.step summary {
+  padding: 20px 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  list-style: none;
+}
+
+.step summary::-webkit-details-marker {
+  display: none;
+}
+
+.number {
+  flex-shrink: 0;
+  width: 43px;
+  height: 43px;
+  border-radius: 12px;
+  background: #eaf0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.step-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.step-title strong {
+  display: block;
+  color: var(--dark);
+  font-size: 17px;
+}
+
+.step-title small {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.expand-icon {
+  color: #64748b;
+  font-size: 22px;
+}
+
+.step[open] .expand-icon {
+  transform: rotate(45deg);
+}
+
+.step-content {
+  padding: 0 25px 25px 82px;
+}
+
+.step-content ol,
+.step-content ul {
+  padding-left: 22px;
+}
+
+.step-content li {
+  margin-bottom: 10px;
+}
+
+.note {
+  background: #f0f5ff;
+  border-left: 4px solid #5268dc;
+  border-radius: 8px;
+  padding: 15px 17px;
+  margin-top: 19px;
+  font-size: 14px;
+}
+
+.warning {
+  background: #fff8e9;
+  border-left-color: #e5a33c;
+}
+
+.example {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 15px;
+  margin: 18px 0;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.task-check {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: #f8faff;
+  border: 1px solid #e7ecf9;
+  border-radius: 9px;
+  padding: 12px;
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #435fd0;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checklist {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.checklist label {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border-bottom: 1px solid #eef0f5;
+  padding: 5px 0 13px;
+  cursor: pointer;
+}
+
+.recommendation {
+  background: #f8faff;
+  border: 1px solid #e5eafd;
+  padding: 18px;
+  border-radius: 10px;
+  margin: 12px 0;
+}
+
+.recommendation strong {
+  color: var(--dark);
+}
+
+.recommendation p {
+  margin: 6px 0 0;
+  color: #526076;
+}
+
+footer {
+  padding: 30px 20px;
+  background: #e9edf6;
+  color: #64748b;
+  text-align: center;
+  font-size: 14px;
+}
+
+@media(max-width:600px) {
+  .panel { padding: 20px; }
+  .step summary { padding: 16px; }
+  .step-content { padding: 0 17px 22px; }
+  .hero { padding-bottom: 55px; }
+  .workflow-map .arrow { display: none; }
+}
+
+@media print {
+  body { background: white; }
+  .hero { background: white; color: black; padding: 10px 0; }
+  .hero p, .back-link { color: #444; }
+  .hero-tags, .progress-panel, .btn, .task-check {
+    display: none !important;
+  }
+  .container { margin: 0 auto; }
+  .panel, .step { box-shadow: none; break-inside: avoid; }
+  .step-content { display: block !important; }
+  .step summary { cursor: default; }
+  .expand-icon { display: none; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <a class="back-link"
+       href="https://prabinkc2046.github.io/digital-learning-hub/">
+      ← Back to Digital Learning Hub
+    </a>
+
+    <h1>🎬 How I Create Professional Video Guides</h1>
+
+    <p>
+      My step-by-step workflow for creating short, clear,
+      teacher-friendly how-to videos, from screen recording
+      through to publishing on SharePoint and Compass.
+    </p>
+
+    <div class="hero-tags">
+      <span>Screen Recording</span>
+      <span>AI Narration</span>
+      <span>Video Editing</span>
+      <span>Publishing</span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- INTRODUCTION -->
+  <section class="panel">
+    <h2>📖 About This Workflow</h2>
+
+    <p>
+      This guide documents the process I follow to create
+      technology training videos and how-to guides for teachers.
+    </p>
+
+    <p>
+      My approach starts with recording a detailed demonstration
+      in my own voice. I then convert the recording into a
+      concise narration, refine the visuals, add highlights,
+      and publish the finished resource where teachers can
+      easily access it.
+    </p>
+
+    <p>
+      <strong>My guiding principle:</strong>
+      Keep each video clear, purposeful and easy to follow.
+      Give viewers enough time to see the action, hear the
+      instruction and understand what is happening.
+    </p>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="panel">
+    <h2>🧰 Tools I Use</h2>
+    <p class="muted">
+      Each tool has a specific purpose in my workflow.
+    </p>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <strong>🖥️ macOS Screen Recording</strong>
+        <small>Capture the screen and my original voice commentary.</small>
+      </div>
+
+      <div class="tool-card">
+        <strong>🎞️ Microsoft Clipchamp</strong>
+        <small>Transcription, narration, timeline editing and music.</small>
+      </div>
+
+      <div class="tool-card">
+        <strong>🤖 Microsoft Copilot</strong>
+        <small>Convert transcripts into concise instructional scripts.</small>
+      </div>
+
+      <div class="tool-card">
+        <strong>🎨 Canva</strong>
+        <small>Video highlights, animations, privacy blurring and banners.</small>
+      </div>
+
+      <div class="tool-card">
+        <strong>📁 SharePoint</strong>
+        <small>Store source files, completed videos and sharing links.</small>
+      </div>
+
+      <div class="tool-card">
+        <strong>🏫 Compass</strong>
+        <small>Publish learning resources as tiles on the Digital Learning site.</small>
+      </div>
+
+      <div class="tool-card">
+        <strong>📝 TextEdit</strong>
+        <small>Open SRT subtitle files and copy the transcript.</small>
+      </div>
+
+      <div class="tool-card">
+        <strong>🔊 Text to Speech</strong>
+        <small>Generate polished narration and align it with the demonstration.</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOW OVERVIEW -->
+  <section class="panel">
+    <h2>🗺️ Workflow Overview</h2>
+    <p class="muted">
+      My production process follows this sequence.
+    </p>
+
+    <div class="workflow-map">
+      <span>Record</span>
+      <span class="arrow">→</span>
+      <span>Upload</span>
+      <span class="arrow">→</span>
+      <span>Transcribe</span>
+      <span class="arrow">→</span>
+      <span>Write Script</span>
+      <span class="arrow">→</span>
+      <span>Generate Narration</span>
+      <span class="arrow">→</span>
+      <span>Edit</span>
+      <span class="arrow">→</span>
+      <span>Highlight</span>
+      <span class="arrow">→</span>
+      <span>Add Music</span>
+      <span class="arrow">→</span>
+      <span>Publish</span>
+    </div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section class="panel progress-panel">
+    <div class="progress-top">
+      <strong>My Workflow Progress</strong>
+      <span id="progressText">0 of 12 completed</span>
+    </div>
+
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="progress-actions">
+      <button class="btn" onclick="expandAll()">Expand All</button>
+      <button class="btn" onclick="collapseAll()">Collapse All</button>
+      <button class="btn" onclick="resetProgress()">Reset Progress</button>
+      <button class="btn btn-primary" onclick="printGuide()">
+        Print Guide
+      </button>
+    </div>
+
+    <p class="muted" style="font-size:13px">
+      Tick each step as you complete it. Progress is tracked
+      in this page while it remains open.
+    </p>
+  </section>
+
+  <h2 class="section-heading">🎥 Phase 1 — Recording and Preparing Content</h2>
+
+  <!-- STEP 1 -->
+  <details class="step" open>
+    <summary>
+      <span class="number">01</span>
+      <span class="step-title">
+        <strong>Prepare and Screen Record the Demonstration</strong>
+        <small>Mac screen recording with my own commentary</small>
+      </span>
+      <span class="expand-icon">+</span>
+    </summary>
+
+    <div class="step-content">
+      <p>
+        I start by demonstrating the process on screen
+        while explaining everything in my own voice.
+        At this stage, I focus on completeness rather
+        than making the video short.
+      </p>
+
+      <ol>
+        <li>Open the application or tool I want to demonstrate.</li>
+        <li>Prepare the screen so the important controls are visible.</li>
+        <li>Press <strong>Command + Shift + 5</strong> on my Mac.</li>
+        <li>Choose the appropriate screen recording option.</li>
+        <li>Under Options, select the microphone I want to use.</li>
+        <li>Start recording and talk through each action.</li>
+        <li>Explain the steps slowly and clearly.</li>
+        <li>Once finished, stop the recording.</li>
+      </ol>
+
+      <div class="note">
+        <strong>My approach:</strong>
+        I deliberately take my time when recording.
+        I can remove unnecessary sections later, but
+        I want the original recording to capture the
+        entire process and explanation.
+      </div>
+
+      <div class="note warning">
+        <strong>Important:</strong>
+        Before recording, close unrelated windows,
+        hide notifications and avoid displaying
+        student or staff personal information.
+      </div>
+
+      <label class="task-check">
+        <input type="checkbox" class="step-check">
+        Recording completed
+      </label>
+    </div>
+  </details>
+
+  <!-- STEP 2 -->
+  <details class="step">
+    <summary>
+      <span class="number">02</span>
+      <span class="step-title">
+        <strong>Upload Original Recording to SharePoint</strong>
+        <small>Store the video in the correct Digital Learning folder</small>
+      </span>
+      <span class="expand-icon">+</span>
+    </summary>
+
+    <div class="step-content">
+      <ol>
+        <li>Open the Digital Learning SharePoint site.</li>
+        <li>Navigate to the appropriate resource category.</li>
+        <li>Open the correct application or equipment folder.</li>
+        <li>Upload the original screen recording.</li>
+        <li>Check the upload has completed successfully.</li>
+      </ol>
+
+      <p>For example, for a CommBox training resource:</p>
+
+      <div class="example">
+        Digital Learning<br>
+        ↳ Interactive Panel<br>
+        ↳ CommBox<br>
+        ↳ Original Recording
+      </div>
+
+      <div class="note">
+        <strong>Why I do this:</strong>
+        Storing the recording in the correct location
+        keeps resources organised and makes the video
+        easier to find during editing.
+      </div>
+
+      <label class="task-check">
+        <input type="checkbox" class="step-check">
+        Original video uploaded
+      </label>
+    </div>
+  </details>
+
+  <!-- STEP 3 -->
+  <details class="step">
+    <summary>
+      <span class="number">03</span>
+      <span class="step-title">
+        <strong>Open the Recording in Clipchamp</strong>
+        <small>Load the video into the editing timeline</small>
+      </span>
+      <span class="expand-icon">+</span>
+    </summary>
+
+    <div class="step-content">
+      <ol>
+        <li>Find the uploaded video in SharePoint.</li>
+        <li>Right-click or open the file's available actions.</li>
+        <li>Select <strong>Edit in Clipchamp</strong>.</li>
+        <li>Allow the video to finish loading into Clipchamp.</li>
+        <li>Click the <strong>+</strong> button to add the video to the timeline.</li>
+        <li>Confirm the complete video is visible in the timeline.</li>
+      </ol>
+
+      <div class="note">
+        <strong>Tip:</strong>
+        Large recordings can take some time to load.
+        I make sure the video is ready before
+        proceeding with transcription or editing.
+      </div>
+
+      <label class="task-check">
+        <input type="checkbox" class="step-check">
+        Video loaded into Clipchamp
+      </label>
+    </div>
+  </details>
+
+  <!-- STEP 4 -->
+  <details class="step">
+    <summary>
+      <span class="number">04</span>
+      <span class="step-title">
+        <strong>Transcribe the Original Recording</strong>
+        <small>Convert my spoken explanation into text</small>
+      </span>
+      <span class="expand-icon">+</span>
+    </summary>
+
+    <div class="step-content">
+      <ol>
+        <li>Open the transcription or captions feature in Clipchamp.</li>
+        <li>Generate a transcription of the recorded audio.</li>
+        <li>Review the generated text for obvious mistakes.</li>
+        <li>Download the transcript as an <strong>SRT file</strong>.</li>
+        <li>Find the downloaded file on my Mac.</li>
+        <li>Open the SRT file using TextEdit.</li>
+        <li>Select and copy the entire transcript.</li>
+      </ol>
+
+      <div class="example">
+        Example SRT structure:<br><br>
+        1<br>
+        00:00:01,000 --> 00:00:05,000<br>
+        In this video, we will learn how to register an NFC card.
+      </div>
+
+      <div class="note">
+        <strong>Purpose:</strong>
+        The transcript becomes the foundation for
+        writing a shorter, more polished narration.
+      </div>
+
+      <label class="task-check">
+        <input type="checkbox" class="step-check">
+        Transcript downloaded and copied
+      </label>
+    </div>
+  </details>
+
+  <h2 class="section-heading">🎙️ Phase 2 — Script and Narration</h2>
+
+  <!-- STEP 5 -->
+  <details class="step">
+    <summary>
+      <span class="number">05</span>
+      <span class="step-title">
+        <strong>Create a Concise Script Using AI</strong>
+        <small>Transform the transcript into a clear how-to narration</small>
+      </span>
+      <span class="expand-icon">+</span>
+    </summary>
+
+    <div class="step-content">
+      <ol>
+        <li>Open Microsoft Copilot or another approved AI tool.</li>
+        <li>Paste the copied SRT transcript.</li>
+        <li>Ask AI to create a short introduction.</li>
+        <li>Ask for clear step-by-step narration in a concise instructional style, similar to Tango.</li>
+        <li>Review the script against the actual video.</li>
+        <li>Correct any inaccurate instructions, missing actions or unclear wording.</li>
+      </ol>
+
+      <p><strong>Example prompt I can use:</strong></p>
+
+      <div class="example" id="promptText">
+        You are creating a professional how-to video for teachers.
+        Using the transcript below, write a short introduction
+        and concise step-by-step narration.
+
+        Follow the actual sequence of actions in the recording.
+        Keep the language simple, direct and instructional,
+        similar to a Tango-style guide.
+
+        Use short sentences suitable for text-to-speech.
+        Do not invent features, buttons or actions that
+        are not supported by the transcript.
+
+        Organise the narration into short, numbered segments
+        so each segment can be matched with its corresponding
+        action in the video.
+
+        Transcript:
+        [Paste SRT transcript here]
+      </div>
+
+      <button class="btn btn-primary" onclick="copyPrompt()">
+        Copy AI Prompt
+      </button>
+
+      <div class="note">
+        <strong>My goal:</strong>
+        The original recording might contain long explanations.
+        I use AI to make the final narration more focused,
+        while preserving the essential instructions.
+      </div>
+
+      <label class="task-check">
+        <input type="checkbox" class="step-check">
+        Script reviewed and finalised
+      </label>
+    </div>
+  </details>
+
+  <!-- STEP 6 -->
+  <details class="step">
+    <summary>
+      <span class="number">06</span>
+      <span class="step-title">
+        <strong>Generate and Align AI Narration</strong>
+        <small>Clipchamp text-to-speech and timeline alignment</small>
+      </span>
+      <span class="expand-icon">+</span>
+    </summary>
+
+    <div class="step-content">
+      <p>
+        I arrange my workspace so I can see both the
+        script and Clipchamp at the same time.
+      </p>
+
+      <div class="example">
+        LEFT SIDE: AI-generated script<br>
+        RIGHT SIDE: Clipchamp video editor
+      </div>
+
+      <ol>
+        <li>Keep the prepared narration visible on the left.</li>
+        <li>Open the Text to Speech feature in Clipchamp.</li>
+        <li>Copy one short narration segment.</li>
+        <li>Paste it into the text-to-speech input.</li>
+        <li>Generate the narration and listen to it.</li>
+        <li>Add the generated audio to the timeline.</li>
+        <li>Position it to match the corresponding action on screen.</li>
+        <li>Repeat for each narration segment.</li>
+      </ol>
+
+      <p>
+        After positioning each segment, I play the
+        video to check whether the spoken instruction
+        matches the visual action.
+      </p>
+
+      <div class="note warning">
+        <strong>Important:</strong>
+        Narration must not run ahead of the demonstration.
+        I allow enough time for the voice to finish,
+        and leave short gaps where the viewer needs
+        time to understand the action.
+      </div>
+
+      <label class="task-check">
+        <input type="checkbox" class="step-check">
+        Narration generated and aligned
+      </label>
+    </div>
+  </details>
+
+  <h2 class="section-heading">✂️ Phase 3 — Editing and Visual Enhancement</h2>
+
+  <!-- STEP 7 -->
+  <details class="step">
+    <summary>
+      <span class="number">07</span>
+      <span class="step-title">
+        <strong>Review and Export the Narrated Video</strong>
+        <small>Check audio timing before moving to Canva</small>
+      </span>
+      <span class="expand-icon">+</span>
+    </summary>
+
+    <div class="step-content">
+      <ol>
+        <li>Play through the entire Clipchamp timeline.</li>
+        <li>Check that every narration segment matches the correct visual action.</li>
+        <li>Adjust narration placement where required.</li>
+        <li>Allow natural pauses between instructional steps.</li>
+        <li>Remove or mute the original commentary if it is no longer needed.</li>
+        <li>When satisfied, export the narrated video to my Mac.</li>
+      </ol>
+
+      <div class="note">
+        <strong>Checkpoint:</strong>
+        The video should already make sense to a viewer
+        before I begin adding visual highlights.
+      </div>
+
+      <label class="task-check">
+        <input type="checkbox" class="step-check">
+        Narrated video exported
+      </label>
+    </div>
+  </details>
+
+  <!-- STEP 8 -->
+  <details class="step">
+    <summary>
+      <span class="number">08</span>
+      <span class="step-title">
+        <strong>Trim and Refine the Video in Canva</strong>
+        <small>Remove unnecessary footage without rushing the viewer</small>
+      </span>
+      <span class="expand-icon">+</span>
+    </summary>
+
+    <div class="step-content">
+      <ol>
+        <li>Open Canva and create or open a video editing project.</li>
+        <li>Upload the video exported from Clipchamp.</li>
+        <li>Place the video in the Canva editing timeline.</li>
+        <li>Identify sections with unnecessary waiting, delays or mistakes.</li>
+        <li>Trim or split those sections as needed.</li>
+        <li>Keep sufficient time for narration to finish naturally.</li>
+        <li>Leave short pauses so viewers can absorb the information.</li>
+        <li>Watch the complete trimmed video before adding highlights.</li>
+      </ol>
+
+      <div class="note warning">
+        <strong>My editing rule:</strong>
+        Do not cut too aggressively.
+        The purpose is to make the video clear and efficient,
+        not simply as short as possible.
+      </div>
+
+      <label class="task-check">
+        <input type="checkbox" class="step-check">
+        Video trimming completed
+      </label>
+    </div>
+  </details>
+
+  <!-- STEP 9 -->
+  <details class="step">
+    <summary>
+      <span class="number">09</span>
+      <span class="step-title">
+        <strong>Add Animated Highlights and Check Privacy</strong>
+        <small>Use Canva visual elements to guide the viewer</small>
+      </span>
+      <span class="expand-icon">+</span>
+    </summary>
+
+    <div class="step-content">
+      <p>
+        After trimming, I add visual cues to direct
+        the viewer's attention to important controls
+        and actions.
+      </p>
+
+      <ol>
+        <li>Open Canva Elements.</li>
+        <li>Add a rectangle shape.</li>
+        <li>Set the fill to transparent or use an outline-only rectangle.</li>
+        <li>Use a red border with rounded corners.</li>
+        <li>Position it around the relevant button, menu or selected element.</li>
+        <li>Apply a <strong>Wipe</strong> animation where appropriate.</li>
+        <li>Adjust its appearance and timing to align with the action.</li>
+        <li>Repeat for other important interactions.</li>
+        <li>Review the entire video for private information.</li>
+        <li>Blur, cover or remove any sensitive information that appears.</li>
+        <li>Play through the video and export it as an MP4.</li>
+      </ol>
+
+      <div class="note">
+        <strong>Visual style:</strong>
+        I use red rounded rectangles and subtle
+        wipe animations to draw attention to
+        the interface elements being demonstrated.
+      </div>
+
+      <div class="note warning">
+        <strong>Privacy check:</strong>
+        Pay particular attention to student names,
+        email addresses, personal records, passwords
+        and any other confidential information.
+        Check the video frame by frame where necessary.
+      </div>
+
+      <label class="task-check">
+        <input type="checkbox" class="step-check">
+        Highlights added and privacy checked
+      </label>
+    </div>
+  </details>
+
+  <!-- STEP 10 -->
+  <details class="step">
+    <summary>
+      <span class="number">10</span>
+      <span class="step-title">
+        <strong>Add Background Music in Clipchamp</strong>
+        <small>Final audio mix and completed video export</small>
+      </span>
+      <span class="expand-icon">+</span>
+    </summary>
+
+    <div class="step-content">
+      <p>
+        I return to the original Clipchamp project.
+        I keep that project open until the production
+        process is finished.
+      </p>
+
+      <ol>
+        <li>Return to the existing Clipchamp project.</li>
+        <li>Clear the existing timeline after confirming the required exports are safely saved.</li>
+        <li>Upload the enhanced MP4 exported from Canva.</li>
+        <li>Add the video to the timeline.</li>
+        <li>Open the audio or music library.</li>
+        <li>Add background music, usually <strong>Keep Moving</strong>.</li>
+        <li>Reduce the music volume to approximately <strong>10%</strong>.</li>
+        <li>Align the music so it starts with the video.</li>
+        <li>If the music is too short, select it and press <strong>Command + D</strong> to duplicate it.</li>
+        <li>Align the duplicated audio clips without unwanted gaps.</li>
+        <li>Trim the music so it finishes with the video.</li>
+        <li>Add fade-in or fade-out effects where appropriate.</li>
+        <li>Listen to the complete video and export the final version.</li>
+      </ol>
+
+      <div class="note">
+        <strong>My preferred music:</strong>
+        Keep Moving, usually at 10% volume.
+        The spoken instructions must always remain
+        clearly understandable over the background music.
+      </div>
+
+      <div class="note warning">
+        <strong>Additional check:</strong>
+        Confirm the selected music is licensed for
+        your intended educational use and distribution.
+      </div>
+
+      <label class="task-check">
+        <input type="checkbox" class="step-check">
+        Final video with music exported
+      </label>
+    </div>
+  </details>
+
+  <h2 class="section-heading">🚀 Phase 4 — Publishing and Distribution</h2>
+
+  <!-- STEP 11 -->
+  <details class="step">
+    <summary>
+      <span class="number">11</span>
+      <span class="step-title">
+        <strong>Upload Final Video and Create a Banner</strong>
+        <small>Organise the finished resource in SharePoint</small>
+      </span>
+      <span class="expand-icon">+</span>
+    </summary>
+
+    <div class="step-content">
+      <ol>
+        <li>Return to the correct Digital Learning SharePoint folder.</li>
+        <li>Upload the completed MP4 video.</li>
+        <li>Give it a clear and descriptive title.</li>
+        <li>Open Canva and find an existing video banner template.</li>
+        <li>Create a copy of the existing banner.</li>
+        <li>Replace the heading with the title of the new guide.</li>
+        <li>Use Copilot to generate an illustrative image related to the topic.</li>
+        <li>Replace the old banner image with the new one.</li>
+        <li>Check that the heading and image are clearly visible.</li>
+        <li>Download the finished banner as a PNG image.</li>
+      </ol>
+
+      <div class="example">
+        <strong>Example video title:</strong><br>
+        How to Register an NFC Card on the CommBox
+      </div>
+
+      <div class="note">
+        <strong>Consistency:</strong>
+        Reusing the existing Canva banner template
+        helps keep learning resources visually consistent
+        across the Digital Learning site.
+      </div>
+
+      <label class="task-check">
+        <input type="checkbox" class="step-check">
+        Final video and banner ready
+      </label>
+    </div>
+  </details>
+
+  <!-- STEP 12 -->
+  <details class="step">
+    <summary>
+      <span class="number">12</span>
+      <span class="step-title">
+        <strong>Share the Video and Publish on Compass</strong>
+        <small>Create the final Digital Learning tile</small>
+      </span>
+      <span class="expand-icon">+</span>
+    </summary>
+
+    <div class="step-content">
+      <ol>
+        <li>Find the completed video in SharePoint.</li>
+        <li>Select the video and click <strong>Share</strong>.</li>
+        <li>Open the link settings.</li>
+        <li>Choose the appropriate permission allowing people within King's to view the resource.</li>
+        <li>Set the link to view-only where available.</li>
+        <li>Apply the sharing settings.</li>
+        <li>Click <strong>Copy link</strong>.</li>
+        <li>Open the Digital Learning site on Compass.</li>
+        <li>Create a new tile in the appropriate section.</li>
+        <li>Enter the title of the learning resource.</li>
+        <li>Paste the copied SharePoint link in the <strong>Open URL</strong> field.</li>
+        <li>Upload the Canva banner PNG as the tile image.</li>
+        <li>Save or publish the tile.</li>
+        <li>Open the tile and confirm it loads the correct video.</li>
+      </ol>
+
+      <div class="note">
+        <strong>Final result:</strong>
+        Staff can find the learning resource on Compass,
+        recognise the topic from its banner and
+        open the instructional video through SharePoint.
+      </div>
+
+      <div class="note warning">
+        <strong>Final permission test:</strong>
+        Check the link using the intended viewer's
+        access level, not only your own account.
+        This helps confirm staff can open the resource
+        without needing additional permissions.
+      </div>
+
+      <label class="task-check">
+        <input type="checkbox" class="step-check">
+        Video published and link tested
+      </label>
+    </div>
+  </details>
+
+  <!-- FINAL QUALITY CHECK -->
+  <section class="panel" style="margin-top:45px">
+    <h2>✅ Final Quality Assurance Checklist</h2>
+
+    <p class="muted">
+      Before considering the resource complete,
+      I review the following items.
+    </p>
+
+    <div class="checklist">
+      <label>
+        <input type="checkbox">
+        The video demonstrates the correct process in the correct order.
+      </label>
+
+      <label>
+        <input type="checkbox">
+        Narration is clear, concise and factually accurate.
+      </label>
+
+      <label>
+        <input type="checkbox">
+        Every narration segment matches the visual demonstration.
+      </label>
+
+      <label>
+        <input type="checkbox">
+        Pauses give viewers enough time to understand each step.
+      </label>
+
+      <label>
+        <input type="checkbox">
+        Visual highlights appear at the correct moment.
+      </label>
+
+      <label>
+        <input type="checkbox">
+        No confidential or personal information is visible.
+      </label>
+
+      <label>
+        <input type="checkbox">
+        Background music does not interfere with narration.
+      </label>
+
+      <label>
+        <input type="checkbox">
+        The video has an appropriate title and banner.
+      </label>
+
+      <label>
+        <input type="checkbox">
+        The SharePoint sharing permissions are correct.
+      </label>
+
+      <label>
+        <input type="checkbox">
+        The Compass tile opens the correct video.
+      </label>
+    </div>
+  </section>
+
+  <!-- IMPROVEMENTS -->
+  <section class="panel">
+    <h2>💡 Additional Recommendations</h2>
+
+    <p class="muted">
+      The workflow above reflects my current process.
+      The following are optional improvements that could
+      make future video production more efficient.
+    </p>
+
+    <div class="recommendation">
+      <strong>1. Define one learning objective</strong>
+      <p>
+        Before recording, identify exactly what the
+        teacher should be able to do after watching.
+        Where possible, focus each short video on one task.
+      </p>
+    </div>
+
+    <div class="recommendation">
+      <strong>2. Use a standard opening structure</strong>
+      <p>
+        Begin with the task, explain when it is useful,
+        and then demonstrate the steps.
+        Avoid lengthy introductions.
+      </p>
+    </div>
+
+    <div class="recommendation">
+      <strong>3. Standardise file naming</strong>
+      <p>
+        Use descriptive names and consistent folder
+        structures for original recordings,
+        working exports and final videos.
+      </p>
+
+      <div class="example">
+        CommBox_Register_NFC_Card_Final.mp4<br>
+        CommBox_Register_NFC_Card_Banner.png
+      </div>
+    </div>
+
+    <div class="recommendation">
+      <strong>4. Make resources accessible</strong>
+      <p>
+        Consider providing accurate captions,
+        checking readability of on-screen text,
+        and avoiding excessive animation.
+        Retain a corrected transcript when useful.
+      </p>
+    </div>
+
+    <div class="recommendation">
+      <strong>5. Test the final video as a first-time viewer</strong>
+      <p>
+        Watch the video without relying on your
+        own knowledge of the application.
+        Check whether a teacher unfamiliar with
+        the feature could follow each step.
+      </p>
+    </div>
+
+    <div class="recommendation">
+      <strong>6. Maintain a small resource register</strong>
+      <p>
+        Record the resource title, topic, intended
+        audience, SharePoint link, publication date
+        and last review date. This can help identify
+        videos needing updates when software changes.
+      </p>
+    </div>
+
+    <div class="recommendation">
+      <strong>7. Keep editing projects and source files</strong>
+      <p>
+        Retain the original recording, editable projects,
+        final narration and banner where practical.
+        This makes it easier to update a guide
+        when the software interface changes.
+      </p>
+    </div>
+  </section>
+
+  <!-- COMPLETION -->
+  <section class="panel" style="text-align:center">
+    <div style="font-size:48px">🎉</div>
+    <h2 id="completionHeading">Your Guide Production Workflow</h2>
+    <p id="completionMessage" class="muted">
+      Follow the stages above to create a polished,
+      consistent and accessible learning resource.
+    </p>
+
+    <button class="btn btn-primary" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      ↑ Back to Top
+    </button>
+  </section>
+
+</main>
+
+<footer>
+  Digital Learning Hub © 2026
+  <p>Video Production Workflow • Internal Training Resource</p>
+</footer>
+
+<script>
+  const steps = document.querySelectorAll(".step");
+  const stepChecks = document.querySelectorAll(".step-check");
+
+  const progressFill = document.getElementById("progressFill");
+  const progressText = document.getElementById("progressText");
+  const completionHeading =
+    document.getElementById("completionHeading");
+  const completionMessage =
+    document.getElementById("completionMessage");
+
+  function updateProgress() {
+    const completed = [...stepChecks].filter(
+      check => check.checked
+    ).length;
+
+    const total = stepChecks.length;
+    const percentage = Math.round(completed / total * 100);
+
+    progressFill.style.width = percentage + "%";
+
+    progressText.textContent =
+      `${completed} of ${total} completed`;
+
+    if (completed === total) {
+      completionHeading.textContent = "Workflow Completed! 🎉";
+      completionMessage.textContent =
+        "All production stages have been marked complete. " +
+        "Remember to review the final quality checklist.";
+    } else {
+      completionHeading.textContent =
+        "Your Guide Production Workflow";
+      completionMessage.textContent =
+        "Follow the stages above to create a polished, " +
+        "consistent and accessible learning resource.";
+    }
+  }
+
+  stepChecks.forEach(check => {
+    check.addEventListener("change", updateProgress);
+  });
+
+  function expandAll() {
+    steps.forEach(step => step.open = true);
+  }
+
+  function collapseAll() {
+    steps.forEach(step => step.open = false);
+  }
+
+  function resetProgress() {
+    stepChecks.forEach(check => check.checked = false);
+    updateProgress();
+  }
+
+  function copyPrompt() {
+    const prompt =
+      document.getElementById("promptText").innerText;
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(prompt)
+        .then(() => alert("AI prompt copied!"))
+        .catch(() => alert("Select and copy the prompt manually."));
+    } else {
+      alert("Select and copy the prompt manually.");
+    }
+  }
+
+  function printGuide() {
+    const previousStates = [...steps].map(
+      step => step.open
+    );
+
+    expandAll();
+
+    const restore = () => {
+      steps.forEach((step, index) => {
+        step.open = previousStates[index];
+      });
+      window.removeEventListener("afterprint", restore);
+    };
+
+    window.addEventListener("afterprint", restore);
+    window.print();
+  }
+
+  updateProgress();
+</script>
+
+</body>
+</html>
