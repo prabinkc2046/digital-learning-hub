@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mac Classroom Readiness Checklist</title>
+
+  <style>
+    :root {
+      --background: #f6f7f9;
+      --surface: #ffffff;
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --border: #e2e4e8;
+      --primary: #2563eb;
+      --primary-light: #eff6ff;
+      --success: #16803c;
+      --success-light: #ecfdf3;
+      --danger: #b42318;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+      line-height: 1.5;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .container {
+      width: min(820px, calc(100% - 32px));
+      margin: 48px auto 72px;
+    }
+
+    header {
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.15;
+      letter-spacing: -0.8px;
+    }
+
+    .description {
+      max-width: 720px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .progress-card {
+      margin-top: 26px;
+      padding: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+
+    .progress-label {
+      font-weight: 650;
+    }
+
+    .progress-text {
+      color: var(--muted);
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      overflow: hidden;
+      background: #e8e9ec;
+      border-radius: 999px;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: var(--primary);
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    .completion-message {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      color: var(--success);
+      background: var(--success-light);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .completion-message.visible {
+      display: block;
+    }
+
+    .section-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 20px 0 14px;
+    }
+
+    .tool-button {
+      padding: 8px 12px;
+      color: #3f4146;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .tool-button:hover {
+      background: #f0f1f3;
+    }
+
+    details {
+      margin-bottom: 10px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    details[open] {
+      border-color: #cbd5e1;
+    }
+
+    summary {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 60px;
+      padding: 14px 18px;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "›";
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 24px;
+      line-height: 1;
+      transition: transform 0.15s ease;
+    }
+
+    details[open] summary::after {
+      transform: rotate(90deg);
+    }
+
+    .section-number {
+      display: grid;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 30px;
+      place-items: center;
+      color: var(--primary);
+      background: var(--primary-light);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .section-heading {
+      min-width: 0;
+    }
+
+    .section-title {
+      display: block;
+      font-size: 16px;
+      font-weight: 650;
+    }
+
+    .section-progress {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    .section-content {
+      padding: 5px 18px 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 11px 2px;
+      border-bottom: 1px solid #f0f1f2;
+      cursor: pointer;
+    }
+
+    .check-item:last-child {
+      border-bottom: 0;
+    }
+
+    .check-item:hover {
+      color: var(--primary);
+    }
+
+    input[type="checkbox"] {
+      width: 19px;
+      height: 19px;
+      margin: 2px 0 0;
+      flex: 0 0 19px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .task-text {
+      font-size: 15px;
+    }
+
+    input[type="checkbox"]:checked + .task-text {
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    .footer-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 24px;
+    }
+
+    .reset-button {
+      padding: 9px 12px;
+      color: var(--danger);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .reset-button:hover {
+      background: #fff1f0;
+      border-color: #ffd2cc;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin-top: 28px;
+      }
+
+      .progress-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .progress-text {
+        text-align: left;
+      }
+
+      summary {
+        padding: 14px;
+      }
+
+      .section-content {
+        padding-right: 14px;
+        padding-left: 14px;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .container {
+        width: 100%;
+        margin: 0;
+      }
+
+      .section-tools,
+      .footer-actions {
+        display: none;
+      }
+
+      details {
+        break-inside: avoid;
+      }
+
+      details .section-content {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <header>
+      <h1>Mac Classroom Readiness Checklist</h1>
+
+      <p class="description">
+        A practical checklist for teachers who are new to Mac. Complete each
+        task so you can prepare lessons, present content, communicate, manage
+        files and teach confidently without the Mac getting in your way.
+      </p>
+
+      <div class="progress-card">
+        <div class="progress-row">
+          <span class="progress-label">Overall progress</span>
+          <span class="progress-text" id="progressText">0 of 0 tasks completed</span>
+        </div>
+
+        <div
+          class="progress-track"
+          role="progressbar"
+          aria-label="Checklist progress"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+          id="progressTrack"
+        >
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="completion-message" id="completionMessage">
+          Classroom ready. You have completed every task.
+        </div>
+      </div>
+    </header>
+
+    <div class="section-tools">
+      <button class="tool-button" type="button" id="expandAll">
+        Expand all sections
+      </button>
+
+      <button class="tool-button" type="button" id="collapseAll">
+        Collapse all sections
+      </button>
+    </div>
+
+    <!-- 1. FIRST STEPS -->
+
+    <details data-section="first-steps" open>
+      <summary>
+        <span class="section-number">1</span>
+
+        <span class="section-heading">
+          <span class="section-title">First Steps and Mac Basics</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="sign-in-and-lock">
+          <span class="task-text">I can sign in, sign out and lock the Mac.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="use-trackpad">
+          <span class="task-text">I can click, right-click, scroll and drag using the trackpad or mouse.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="open-close-apps">
+          <span class="task-text">I can open, minimise, maximise and close an application.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="switch-apps">
+          <span class="task-text">I can switch between open applications using Command + Tab.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="use-dock">
+          <span class="task-text">I can use the Dock to open apps and identify which apps are running.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="use-spotlight">
+          <span class="task-text">I can find an app, file or setting using Spotlight with Command + Space.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="force-quit">
+          <span class="task-text">I can use Force Quit if an application stops responding.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="restart-shutdown">
+          <span class="task-text">I can safely restart and shut down the Mac.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 2. CONNECTIONS -->
+
+    <details data-section="connections">
+      <summary>
+        <span class="section-number">2</span>
+
+        <span class="section-heading">
+          <span class="section-title">School Wi-Fi and Connections</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="connect-school-wifi">
+          <span class="task-text">I can connect the Mac to the school Wi-Fi.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="check-wifi">
+          <span class="task-text">I can check whether the Mac is connected to Wi-Fi.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="reconnect-wifi">
+          <span class="task-text">I can turn Wi-Fi off and on and reconnect if the connection drops.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="connect-hotspot">
+          <span class="task-text">I can connect to an approved mobile hotspot if school procedures allow it.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="connect-bluetooth">
+          <span class="task-text">I can connect an approved Bluetooth mouse, keyboard or classroom device.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="disconnect-bluetooth">
+          <span class="task-text">I can disconnect or forget a Bluetooth device when it is no longer needed.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 3. DISPLAY AND SOUND -->
+
+    <details data-section="display-and-sound">
+      <summary>
+        <span class="section-number">3</span>
+
+        <span class="section-heading">
+          <span class="section-title">Display, Projector and Sound</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="connect-projector">
+          <span class="task-text">I can connect the Mac to the classroom projector or display.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="use-adapter">
+          <span class="task-text">I can identify and use the correct USB-C, HDMI or display adapter.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="mirror-screen">
+          <span class="task-text">I can mirror the Mac screen to the classroom display.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="extend-screen">
+          <span class="task-text">I can use the classroom display as an extended screen.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="airplay">
+          <span class="task-text">I can connect wirelessly using AirPlay when it is available at school.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="select-display">
+          <span class="task-text">I can select the correct display from Control Centre or System Settings.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="adjust-brightness">
+          <span class="task-text">I can adjust the screen and keyboard brightness.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="change-volume">
+          <span class="task-text">I can change and mute the sound volume.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="select-speaker">
+          <span class="task-text">I can select the classroom speakers or display as the sound output.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="select-microphone">
+          <span class="task-text">I can select and test the correct microphone.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="fix-no-display">
+          <span class="task-text">I can perform basic checks if the projector shows no image.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="fix-no-sound">
+          <span class="task-text">I can perform basic checks if there is no classroom sound.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 4. FILES -->
+
+    <details data-section="files">
+      <summary>
+        <span class="section-number">4</span>
+
+        <span class="section-heading">
+          <span class="section-title">Files, Folders and Finder</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="open-finder">
+          <span class="task-text">I can open Finder and navigate between Desktop, Documents and Downloads.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="create-folder">
+          <span class="task-text">I can create and name a folder for a class, subject or lesson.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="rename-file">
+          <span class="task-text">I can rename a file or folder clearly.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="move-file">
+          <span class="task-text">I can move files into the correct folder.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="copy-file">
+          <span class="task-text">I can copy and paste a file or folder.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="find-download">
+          <span class="task-text">I can find a file downloaded from a website, email or learning platform.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="search-files">
+          <span class="task-text">I can search for a file using Finder or Spotlight.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="preview-file">
+          <span class="task-text">I can preview a file using the Space bar without opening it.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="delete-restore-file">
+          <span class="task-text">I can move a file to the Bin and restore it if it was deleted accidentally.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="file-types">
+          <span class="task-text">I can recognise common file types such as PDF, DOCX, PPTX, XLSX, JPG and PNG.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 5. CLOUD STORAGE -->
+
+    <details data-section="cloud-storage">
+      <summary>
+        <span class="section-number">5</span>
+
+        <span class="section-heading">
+          <span class="section-title">OneDrive and Cloud Storage</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="sign-in-onedrive">
+          <span class="task-text">I can sign in to OneDrive using my school account.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="find-onedrive">
+          <span class="task-text">I can find the school OneDrive folder in Finder.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="save-onedrive">
+          <span class="task-text">I can save a teaching file to OneDrive.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="check-sync">
+          <span class="task-text">I can check whether a OneDrive file has finished syncing.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="open-shared-file">
+          <span class="task-text">I can open a file or folder shared with me.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="share-school-file">
+          <span class="task-text">I can share a school file with the correct staff member or student group.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="check-permission">
+          <span class="task-text">I can choose whether another person can view or edit a shared file.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="school-storage-only">
+          <span class="task-text">I understand where school files should be stored and avoid unapproved personal storage.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 6. INTERNET -->
+
+    <details data-section="internet">
+      <summary>
+        <span class="section-number">6</span>
+
+        <span class="section-heading">
+          <span class="section-title">Web Browsing and Online Resources</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="open-browser">
+          <span class="task-text">I can open and use the school-supported web browser.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="tabs">
+          <span class="task-text">I can open, close, move and restore browser tabs.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="bookmark">
+          <span class="task-text">I can bookmark frequently used teaching websites.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="download-web-file">
+          <span class="task-text">I can download a worksheet, image, presentation or PDF from an approved website.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="upload-web-file">
+          <span class="task-text">I can upload a file to the school learning platform or website.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="full-screen-browser">
+          <span class="task-text">I can display a webpage in full-screen mode for students.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="browser-permissions">
+          <span class="task-text">I can allow or block camera, microphone, notification and screen-sharing permissions.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="safe-browsing">
+          <span class="task-text">I can check links and classroom content before displaying them to students.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 7. EMAIL AND CALENDAR -->
+
+    <details data-section="email-calendar">
+      <summary>
+        <span class="section-number">7</span>
+
+        <span class="section-heading">
+          <span class="section-title">School Email and Calendar</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="school-email-signin">
+          <span class="task-text">I can sign in to my school email account.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="send-email">
+          <span class="task-text">I can send, reply to and forward an email.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="attach-file">
+          <span class="task-text">I can attach a file or insert a OneDrive link in an email.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="download-attachment">
+          <span class="task-text">I can safely download and locate an email attachment.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="email-search">
+          <span class="task-text">I can search for an email by sender, subject or keyword.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="identify-phishing">
+          <span class="task-text">I can recognise and report a suspicious or phishing email.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="calendar-event">
+          <span class="task-text">I can create, edit and delete a calendar event.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="calendar-invitation">
+          <span class="task-text">I can accept, decline or propose a new time for a meeting invitation.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="meeting-link">
+          <span class="task-text">I can find and open an online meeting link from an email or calendar event.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 8. TEAMS AND MEETINGS -->
+
+    <details data-section="teams-meetings">
+      <summary>
+        <span class="section-number">8</span>
+
+        <span class="section-heading">
+          <span class="section-title">Microsoft Teams and Online Meetings</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="teams-signin">
+          <span class="task-text">I can sign in to Microsoft Teams using my school account.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="teams-chat">
+          <span class="task-text">I can send a message in an appropriate chat or channel.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="teams-file">
+          <span class="task-text">I can share and open a file in Microsoft Teams.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="join-meeting">
+          <span class="task-text">I can join a Microsoft Teams meeting.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="mute-camera">
+          <span class="task-text">I can mute the microphone and turn the camera on or off.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="meeting-devices">
+          <span class="task-text">I can select the correct speaker, microphone and camera before a meeting.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="share-screen">
+          <span class="task-text">I can share a screen, window or presentation during a meeting.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="stop-sharing">
+          <span class="task-text">I can stop sharing and check that private information is not visible.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 9. LESSON MATERIALS -->
+
+    <details data-section="lesson-materials">
+      <summary>
+        <span class="section-number">9</span>
+
+        <span class="section-heading">
+          <span class="section-title">Creating Lesson Materials</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="open-word">
+          <span class="task-text">I can create, edit and save a document using Microsoft Word or the school-approved app.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="format-document">
+          <span class="task-text">I can format headings, text, lists, tables and images in a document.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="create-slides">
+          <span class="task-text">I can create, edit and save classroom slides using PowerPoint or Keynote.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="present-slides">
+          <span class="task-text">I can start and exit a slide presentation.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="presenter-view">
+          <span class="task-text">I can use Presenter View while students see only the slides.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="play-media">
+          <span class="task-text">I can play and pause video or audio during a lesson.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="save-pdf">
+          <span class="task-text">I can save or export a document as a PDF.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="autosave">
+          <span class="task-text">I can check that AutoSave is enabled for important teaching files.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 10. SCREENSHOTS AND RECORDING -->
+
+    <details data-section="screenshots">
+      <summary>
+        <span class="section-number">10</span>
+
+        <span class="section-heading">
+          <span class="section-title">Screenshots and Screen Recording</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="full-screenshot">
+          <span class="task-text">I can take a screenshot of the entire screen using Command + Shift + 3.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="partial-screenshot">
+          <span class="task-text">I can capture part of the screen using Command + Shift + 4.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="screenshot-toolbar">
+          <span class="task-text">I can open the screenshot and recording toolbar using Command + Shift + 5.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="find-screenshot">
+          <span class="task-text">I can find, rename and move a screenshot.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="annotate-screenshot">
+          <span class="task-text">I can crop or annotate a screenshot using Markup.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="screen-recording">
+          <span class="task-text">I can make and stop a screen recording when school policy permits it.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="recording-privacy">
+          <span class="task-text">I check privacy, consent and school policy before recording students or meetings.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 11. PDFs AND PRINTING -->
+
+    <details data-section="pdf-printing">
+      <summary>
+        <span class="section-number">11</span>
+
+        <span class="section-heading">
+          <span class="section-title">PDFs, Printing and Scanning</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="open-pdf-preview">
+          <span class="task-text">I can open and navigate a PDF using Preview.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="pdf-annotation">
+          <span class="task-text">I can highlight, add text and annotate a PDF.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="pdf-pages">
+          <span class="task-text">I can rotate, rearrange or remove PDF pages when appropriate.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="connect-printer">
+          <span class="task-text">I can select and use the correct school printer.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="print-settings">
+          <span class="task-text">I can choose page range, copies, colour, paper size and double-sided printing.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="print-preview">
+          <span class="task-text">I can check the print preview before sending a large print job.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="save-as-pdf-print">
+          <span class="task-text">I can use the Print menu to save a document as a PDF.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="scan-document">
+          <span class="task-text">I can scan or import a document using the school-approved scanner or process.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 12. CLASSROOM WORKFLOW -->
+
+    <details data-section="classroom-workflow">
+      <summary>
+        <span class="section-number">12</span>
+
+        <span class="section-heading">
+          <span class="section-title">Classroom Teaching Workflow</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="prepare-before-lesson">
+          <span class="task-text">I can download or sync lesson files before the class begins.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="open-before-lesson">
+          <span class="task-text">I can open the slides, websites, videos and activities needed before students arrive.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="test-equipment">
+          <span class="task-text">I can test the projector, sound and internet before teaching.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="hide-private-content">
+          <span class="task-text">I can close or hide private emails, messages, files and notifications before presenting.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="focus-mode">
+          <span class="task-text">I can use Focus or Do Not Disturb to prevent personal notifications appearing during class.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="switch-resources">
+          <span class="task-text">I can smoothly switch between slides, websites, videos and classroom applications.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="backup-lesson">
+          <span class="task-text">I have an offline or alternative activity if the internet or classroom display fails.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="end-class">
+          <span class="task-text">I can stop screen sharing, disconnect from the display and secure the Mac after class.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 13. ACCESSIBILITY -->
+
+    <details data-section="accessibility">
+      <summary>
+        <span class="section-number">13</span>
+
+        <span class="section-heading">
+          <span class="section-title">Accessibility and Inclusive Teaching</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="zoom-text">
+          <span class="task-text">I can increase text size or zoom in so classroom content is easier to see.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="display-contrast">
+          <span class="task-text">I can adjust display contrast, colour and pointer size when needed.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="dictation">
+          <span class="task-text">I can use Dictation when it supports lesson preparation or accessibility.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="spoken-content">
+          <span class="task-text">I can use Spoken Content or text-to-speech to read selected text aloud.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="captions">
+          <span class="task-text">I can enable captions or subtitles for classroom video content when available.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="accessibility-shortcuts">
+          <span class="task-text">I can access common accessibility options from System Settings or shortcuts.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 14. SECURITY -->
+
+    <details data-section="security">
+      <summary>
+        <span class="section-number">14</span>
+
+        <span class="section-heading">
+          <span class="section-title">Security, Privacy and Student Safety</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="strong-password">
+          <span class="task-text">I use a strong password and do not share it with students or colleagues.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="mfa">
+          <span class="task-text">I can complete multi-factor authentication for my school account.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="lock-away">
+          <span class="task-text">I lock the Mac whenever I leave it unattended.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="student-data">
+          <span class="task-text">I store student information only in approved school systems and locations.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="screen-sharing-privacy">
+          <span class="task-text">I check what is visible before sharing my screen or connecting to a projector.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="software-installation">
+          <span class="task-text">I follow school procedures before installing applications or browser extensions.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="software-updates">
+          <span class="task-text">I can check for updates and follow school guidance about when to install them.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="report-security">
+          <span class="task-text">I know how to report a lost device, suspicious message or possible data breach.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 15. TROUBLESHOOTING -->
+
+    <details data-section="troubleshooting">
+      <summary>
+        <span class="section-number">15</span>
+
+        <span class="section-heading">
+          <span class="section-title">Basic Troubleshooting and Getting Help</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="check-battery">
+          <span class="task-text">I can check the battery level and connect the correct charger.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="check-cables">
+          <span class="task-text">I check power, cables, adapters and connections when equipment is not working.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="reopen-app">
+          <span class="task-text">I can close and reopen an application that is not working correctly.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="restart-mac">
+          <span class="task-text">I can restart the Mac as a basic troubleshooting step.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="check-storage">
+          <span class="task-text">I can check whether low storage space is affecting the Mac.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="capture-error">
+          <span class="task-text">I can take a screenshot of an error message before asking for help.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="describe-problem">
+          <span class="task-text">I can clearly explain what I was doing, what went wrong and what I already tried.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="contact-support">
+          <span class="task-text">I know how to contact the school IT support team and submit a support request.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="urgent-backup-plan">
+          <span class="task-text">I can continue the lesson using a backup activity while waiting for technical support.</span>
+        </label>
+      </div>
+    </details>
+
+    <!-- 16. FINAL READINESS -->
+
+    <details data-section="final-readiness">
+      <summary>
+        <span class="section-number">16</span>
+
+        <span class="section-heading">
+          <span class="section-title">Final Classroom Readiness</span>
+          <span class="section-progress"></span>
+        </span>
+      </summary>
+
+      <div class="section-content">
+        <label class="check-item">
+          <input type="checkbox" data-id="independent-start">
+          <span class="task-text">I can independently sign in and prepare the Mac for a lesson.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="independent-present">
+          <span class="task-text">I can independently connect to the classroom display and present a lesson.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="independent-resources">
+          <span class="task-text">I can independently create, find, save and share teaching resources.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="independent-communication">
+          <span class="task-text">I can independently use school email, calendar and Microsoft Teams.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="independent-troubleshooting">
+          <span class="task-text">I can independently complete basic troubleshooting without interrupting the lesson.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="know-when-help">
+          <span class="task-text">I know when to stop troubleshooting and contact school IT support.</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" data-id="confident-teaching">
+          <span class="task-text">I feel confident using the Mac as a normal part of classroom teaching.</span>
+        </label>
+      </div>
+    </details>
+
+    <div class="footer-actions">
+      <button class="reset-button" type="button" id="resetButton">
+        Reset all progress
+      </button>
+    </div>
+
+  </main>
+
+  <script>
+    const PROGRESS_STORAGE_KEY = "mac-classroom-readiness-progress-v1";
+    const SECTIONS_STORAGE_KEY = "mac-classroom-readiness-sections-v1";
+
+    const checkboxes = [
+      ...document.querySelectorAll('input[type="checkbox"][data-id]')
+    ];
+
+    const sections = [
+      ...document.querySelectorAll("details[data-section]")
+    ];
+
+    const progressText = document.getElementById("progressText");
+    const progressBar = document.getElementById("progressBar");
+    const progressTrack = document.getElementById("progressTrack");
+    const completionMessage = document.getElementById("completionMessage");
+    const resetButton = document.getElementById("resetButton");
+    const expandAllButton = document.getElementById("expandAll");
+    const collapseAllButton = document.getElementById("collapseAll");
+
+    function readStorage(key) {
+      try {
+        return JSON.parse(localStorage.getItem(key)) || {};
+      } catch {
+        return {};
+      }
+    }
+
+    function loadProgress() {
+      const savedProgress = readStorage(PROGRESS_STORAGE_KEY);
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = savedProgress[checkbox.dataset.id] === true;
+      });
+    }
+
+    function saveProgress() {
+      const progress = {};
+
+      checkboxes.forEach((checkbox) => {
+        progress[checkbox.dataset.id] = checkbox.checked;
+      });
+
+      localStorage.setItem(
+        PROGRESS_STORAGE_KEY,
+        JSON.stringify(progress)
+      );
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const total = checkboxes.length;
+      const completed = checkboxes.filter(
+        (checkbox) => checkbox.checked
+      ).length;
+
+      const percentage = total
+        ? Math.round((completed / total) * 100)
+        : 0;
+
+      progressText.textContent =
+        `${completed} of ${total} tasks completed · ${percentage}%`;
+
+      progressBar.style.width = `${percentage}%`;
+
+      progressTrack.setAttribute(
+        "aria-valuenow",
+        String(percentage)
+      );
+
+      completionMessage.classList.toggle(
+        "visible",
+        total > 0 && completed === total
+      );
+
+      updateSectionProgress();
+    }
+
+    function updateSectionProgress() {
+      sections.forEach((section) => {
+        const sectionCheckboxes = [
+          ...section.querySelectorAll('input[type="checkbox"]')
+        ];
+
+        const completed = sectionCheckboxes.filter(
+          (checkbox) => checkbox.checked
+        ).length;
+
+        const total = sectionCheckboxes.length;
+
+        const sectionProgress =
+          section.querySelector(".section-progress");
+
+        sectionProgress.textContent =
+          `${completed} of ${total} completed`;
+
+        if (total > 0 && completed === total) {
+          sectionProgress.textContent =
+            `Completed · ${completed} of ${total}`;
+        }
+      });
+    }
+
+    function loadSectionStates() {
+      const savedSections = readStorage(SECTIONS_STORAGE_KEY);
+
+      sections.forEach((section) => {
+        const sectionId = section.dataset.section;
+
+        if (Object.prototype.hasOwnProperty.call(savedSections, sectionId)) {
+          section.open = savedSections[sectionId];
+        }
+      });
+    }
+
+    function saveSectionStates() {
+      const sectionStates = {};
+
+      sections.forEach((section) => {
+        sectionStates[section.dataset.section] = section.open;
+      });
+
+      localStorage.setItem(
+        SECTIONS_STORAGE_KEY,
+        JSON.stringify(sectionStates)
+      );
+    }
+
+    checkboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", saveProgress);
+    });
+
+    sections.forEach((section) => {
+      section.addEventListener("toggle", saveSectionStates);
+    });
+
+    expandAllButton.addEventListener("click", () => {
+      sections.forEach((section) => {
+        section.open = true;
+      });
+
+      saveSectionStates();
+    });
+
+    collapseAllButton.addEventListener("click", () => {
+      sections.forEach((section) => {
+        section.open = false;
+      });
+
+      saveSectionStates();
+    });
+
+    resetButton.addEventListener("click", () => {
+      const shouldReset = window.confirm(
+        "Reset all checklist progress? This cannot be undone."
+      );
+
+      if (!shouldReset) {
+        return;
+      }
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+      });
+
+      localStorage.removeItem(PROGRESS_STORAGE_KEY);
+      updateProgress();
+    });
+
+    loadProgress();
+    loadSectionStates();
+    updateProgress();
+  </script>
+
+</body>
+</html>
